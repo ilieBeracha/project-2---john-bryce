@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/jquery": "^3.5.14",
+    "canvasjs": "^1.8.3"
+  }
+}
