@@ -105,7 +105,6 @@ function createCheckbox(coin: Coin) {
     let label = document.createElement('label')
     label.classList.add('checkbox')
     let span = document.createElement('span');
-
     checkBox.checked = checkedArr.includes(coin.symbol)
     checkBox.addEventListener('change', async function (e) {
         if (this.checked) {
@@ -114,23 +113,31 @@ function createCheckbox(coin: Coin) {
                 modal.style.display = "block"
             } else {
                 checkedArr.push(coin.symbol)
+                let checkBox = document.querySelector('.checkbox');
+                (checkBox as HTMLInputElement).checked = true;
+
             }
         } else {
-            checkedArr = checkedArr.filter(c => c !== coin.symbol)
+            checkedArr = checkedArr.filter(c => c !== coin.symbol);
+            (checkBox as HTMLInputElement).checked = false;
         }
-        console.log(checkedArr);
+        console.log(checkedArr)
     })
+
     label.append(checkBox, span)
     return label
 }
 
 $('#searchBtn').on('click', async () => {
     let valueCoin = $('.searchCoin').val();
-    let coins: Coin = await fetch(`https://api.coingecko.com/api/v3/coins/${valueCoin}`).then(res => res.json());
-    if (valueCoin === "" || valueCoin !== coins.id) {
+    let coins: Coin[] = await fetch(`${BASE_URL}`).then(res => res.json());
+    if (valueCoin === "" || valueCoin !== coins[0].symbol) {
         $('.searchCoin').css('border', '3px solid red')
         return;
     }
+    coins = coins.filter(coin=>coin.symbol == valueCoin)
+    console.log(coins);
+    
     $('.searchCoin').css('border', 'none')
     let overlay = document.getElementById('overlay');
     overlay.style.display = "flex";
@@ -146,17 +153,17 @@ $('#searchBtn').on('click', async () => {
     let div = document.createElement('div');
     div.setAttribute('class', 'searchedCoin');
     let image = document.createElement('img');
-    image.src = coins.image.small;
+    image.src = coins[0].image.small;
     let name = document.createElement('p');
-    let checkBox = createCheckbox(coins)
-    name.innerText = `Name: ${coins.id}`;
+    let checkBox = createCheckbox(coins[0])
+    name.innerText = `Name: ${coins[0].id}`;
     let price = document.createElement('p');
-    price.innerText = `Price: ${(coins.market_data.current_price.usd).toString()}`;
+    price.innerText = `Price: ${(coins[0].market_data.current_price.usd).toString()}`;
     let marketCap = document.createElement('p');
-    marketCap.innerText = `Market Cap: ${coins.market_data.market_cap.usd}`;
+    marketCap.innerText = `Market Cap: ${coins[0].market_data.market_cap.usd}`;
     let change = document.createElement('p');
-    change.innerText = `Change%: ${(coins.market_data.price_change_24h).toFixed(3)}`;
-    div.append(image, name, price, marketCap, change,checkBox);
+    change.innerText = `Change%: ${(coins[0].market_data.price_change_24h).toFixed(3)}`;
+    div.append(image, name, price, marketCap, change, checkBox);
     popup.append(div)
     $('#searchCoin').val('')
 })

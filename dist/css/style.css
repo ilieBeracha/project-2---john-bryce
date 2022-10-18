@@ -112,7 +112,7 @@ html .aboutSec {
 }
 body .aboutSec .aboutMe,
 html .aboutSec .aboutMe {
-  width: 50%;
+  width: 30%;
   display: flex;
   justify-content: center;
   flex-direction: column;
