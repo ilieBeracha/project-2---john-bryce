@@ -165,7 +165,7 @@ $('#searchBtn').on('click', async () => {
 
 // orgenizing the functoins.
 // styilyng the about me page.
-// popup checkbox isnt sync with other checkbox.
+// poopup checkbox async with coin checkbox but isnt async on the checked.
 
 
 
