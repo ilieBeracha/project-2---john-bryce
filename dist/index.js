@@ -39,6 +39,9 @@ let cache = {};
 function createBtn(coin) {
     let button = document.createElement('button');
     button.addEventListener('click', async () => {
+        let spinner = document.createElement('div');
+        spinner.classList.add('lds-dual-ring');
+        button.append(spinner);
         $(`#${coin.id}-info`).html('');
         if (cache[coin.id]) {
             let diff = (new Date()).getTime() - cache[coin.id].date;
@@ -58,6 +61,7 @@ function createBtn(coin) {
             };
         }
         createMoreInfoDiv(cache[coin.id].coin);
+        spinner.remove();
     });
     button.classList.add('btn');
     button.setAttribute('data-bs-toggle', 'collapse');
@@ -130,6 +134,7 @@ $('#searchBtn').on('click', async () => {
     let image = document.createElement('img');
     image.src = coins.image.small;
     let name = document.createElement('p');
+    let checkBox = createCheckbox(coins);
     name.innerText = `Name: ${coins.id}`;
     let price = document.createElement('p');
     price.innerText = `Price: ${(coins.market_data.current_price.usd).toString()}`;
@@ -137,15 +142,10 @@ $('#searchBtn').on('click', async () => {
     marketCap.innerText = `Market Cap: ${coins.market_data.market_cap.usd}`;
     let change = document.createElement('p');
     change.innerText = `Change%: ${(coins.market_data.price_change_24h).toFixed(3)}`;
-    div.append(image, name, price, marketCap, change);
+    div.append(image, name, price, marketCap, change, checkBox);
     popup.append(div);
     $('#searchCoin').val('');
 });
-function createDiv() {
-    let div = $('#graphDiv');
-    div.html('');
-}
-// reports div is duplicating if i clicked 2 times before i chose coins.
-// spinner when fetching.
 // orgenizing the functoins.
 // styilyng the about me page.
+// popup checkbox isnt sync with other checkbox.

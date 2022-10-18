@@ -10,14 +10,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 })
 
-
 async function createCoin(coin: Coin) {
     let div = document.createElement('div');
     div.classList.add('coin')
     let checkBox = createCheckbox(coin)
     let image = createImage(coin)
     let coinName = createCoinName(coin)
-    let button = createBtn(coin)
+    let button = createBtn(coin);
     let moreInfo = document.createElement('div');
     moreInfo.classList.add('collapse', 'moreInfo');
     moreInfo.id = `${coin.id}-info`
@@ -27,7 +26,7 @@ async function createCoin(coin: Coin) {
 
 
 async function createMoreInfoDiv(coin: Coin,) {
-    let moreInfo = $(`#${coin.id}-info`)
+    let moreInfo = $(`#${coin.id}-info`);
     let usd = document.createElement('p')
     let marketCap = document.createElement('p')
     let change = document.createElement('p')
@@ -40,7 +39,6 @@ async function createMoreInfoDiv(coin: Coin,) {
     eur.innerHTML = `<strong>In Eur:</strong> ${coin.market_data.current_price.eur}`
     moreInfo.append(usd, marketCap, change, ils, eur)
     moreInfo.css('padding-top', '20px')
-
 }
 
 let cache = {}
@@ -48,7 +46,11 @@ let cache = {}
 function createBtn(coin: Coin) {
     let button = document.createElement('button');
     button.addEventListener('click', async () => {
+        let spinner = document.createElement('div');
+        spinner.classList.add('lds-dual-ring')
+        button.append(spinner)
         $(`#${coin.id}-info`).html('');
+
         if (cache[coin.id]) {
             let diff = (new Date()).getTime() - cache[coin.id].date
             if (diff > 2 * 60 * 1000) {
@@ -66,6 +68,7 @@ function createBtn(coin: Coin) {
             }
         }
         createMoreInfoDiv(cache[coin.id].coin)
+        spinner.remove()
     })
     button.classList.add('btn');
     button.setAttribute('data-bs-toggle', 'collapse')
@@ -102,7 +105,7 @@ function createCheckbox(coin: Coin) {
     let label = document.createElement('label')
     label.classList.add('checkbox')
     let span = document.createElement('span');
-    
+
     checkBox.checked = checkedArr.includes(coin.symbol)
     checkBox.addEventListener('change', async function (e) {
         if (this.checked) {
@@ -115,20 +118,20 @@ function createCheckbox(coin: Coin) {
         } else {
             checkedArr = checkedArr.filter(c => c !== coin.symbol)
         }
-        console.log(checkedArr);   
+        console.log(checkedArr);
     })
-    label.append(checkBox,span)
+    label.append(checkBox, span)
     return label
 }
 
 $('#searchBtn').on('click', async () => {
     let valueCoin = $('.searchCoin').val();
     let coins: Coin = await fetch(`https://api.coingecko.com/api/v3/coins/${valueCoin}`).then(res => res.json());
-    if(valueCoin==="" || valueCoin!==coins.id){
-        $('.searchCoin').css('border','3px solid red')
+    if (valueCoin === "" || valueCoin !== coins.id) {
+        $('.searchCoin').css('border', '3px solid red')
         return;
-    } 
-    $('.searchCoin').css('border','none')
+    }
+    $('.searchCoin').css('border', 'none')
     let overlay = document.getElementById('overlay');
     overlay.style.display = "flex";
     let popup = document.getElementById('popup');
@@ -145,6 +148,7 @@ $('#searchBtn').on('click', async () => {
     let image = document.createElement('img');
     image.src = coins.image.small;
     let name = document.createElement('p');
+    let checkBox = createCheckbox(coins)
     name.innerText = `Name: ${coins.id}`;
     let price = document.createElement('p');
     price.innerText = `Price: ${(coins.market_data.current_price.usd).toString()}`;
@@ -152,23 +156,16 @@ $('#searchBtn').on('click', async () => {
     marketCap.innerText = `Market Cap: ${coins.market_data.market_cap.usd}`;
     let change = document.createElement('p');
     change.innerText = `Change%: ${(coins.market_data.price_change_24h).toFixed(3)}`;
-    div.append(image, name, price, marketCap, change);
+    div.append(image, name, price, marketCap, change,checkBox);
     popup.append(div)
     $('#searchCoin').val('')
 })
 
 
-function createDiv() {
-    let div = $('#graphDiv')
-    div.html('')
-}
 
-
-// reports div is duplicating if i clicked 2 times before i chose coins.
-// spinner when fetching.
 // orgenizing the functoins.
 // styilyng the about me page.
-
+// popup checkbox isnt sync with other checkbox.
 
 
 

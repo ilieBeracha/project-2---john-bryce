@@ -7,6 +7,11 @@ $(() => {
         let interval = undefined;
         if (page === 'reportsSec') {
             if (checkedArr.length === 0) {
+                let text = $('#graphDiv');
+                text.html('');
+                let h1 = $('<h1>please choose coins to see the graphs!</h1>');
+                text.append(h1);
+                $('#chartContainer').html('');
                 return;
             }
             else {
@@ -41,7 +46,7 @@ $(() => {
                     exportEnabled: true,
                     animationEnabled: true,
                     title: {
-                        text: "Chosen Coins"
+                        text: checkedArr
                     },
                     axisX: {
                         title: "date"
@@ -88,3 +93,4 @@ $(() => {
         }
     });
 });
+// when you clear the coins that selected, the interval still runs, and an error in displayed that data points is undefined.

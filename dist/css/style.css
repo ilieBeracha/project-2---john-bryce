@@ -171,6 +171,7 @@ html .coins {
   flex-wrap: wrap;
   gap: 20px;
   padding-top: 30px;
+  padding-bottom: 30px;
   background-color: var(--grayColor);
 }
 body .coins .coin,
@@ -228,6 +229,36 @@ html .coins .coin .checkbox > input:checked + span::before {
   position: absolute;
   left: 0.4rem;
   top: 0.1rem;
+}
+body .coins .lds-dual-ring,
+html .coins .lds-dual-ring {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+}
+body .coins .lds-dual-ring:after,
+html .coins .lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 25px;
+  height: 25px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+body .coins .hidden,
+html .coins .hidden {
+  display: none;
 }
 body .modal,
 html .modal {
@@ -297,6 +328,41 @@ html .modal .close:focus {
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+}
+#popup .checkbox {
+  display: inline-flex;
+  cursor: pointer;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+}
+#popup .checkbox > span {
+  color: #34495E;
+}
+#popup .checkbox > input {
+  height: 25px;
+  width: 25px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  border-radius: 4px;
+  outline: none;
+  transition-duration: 0.3s;
+  background-color: var(--gray2Color);
+  cursor: pointer;
+}
+#popup .checkbox > input:checked {
+  background-color: var(--grayColor);
+}
+#popup .checkbox > input:checked + span::before {
+  content: "✓";
+  display: block;
+  text-align: center;
+  color: var(--textColor);
+  position: absolute;
+  left: 0.4rem;
+  top: 0.1rem;
 }
 #popup .searchedCoin {
   display: flex;

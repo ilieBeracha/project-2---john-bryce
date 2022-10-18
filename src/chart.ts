@@ -8,11 +8,17 @@ $(() => {
         let interval = undefined;
         if (page === 'reportsSec') {
             if(checkedArr.length===0){   
+                let text = $('#graphDiv');
+                text.html('')
+                let h1 = $('<h1>please choose coins to see the graphs!</h1>');
+                text.append(h1)
+                $('#chartContainer').html('');
                 return;
             } else{
                 $('#graphDiv').html('');
             }
             let data = [];
+            
             let chartUrl = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${checkedArr}&tsyms=USD,EUR`
             let coinChecked = await fetch(chartUrl).then(res => res.json());
 
@@ -28,11 +34,9 @@ $(() => {
                 })
             }
             console.log(data)
-
             interval = setInterval(async () => {
                 let chartUrl = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${checkedArr}&tsyms=USD,EUR`
                 let coinChecked = await fetch(chartUrl).then(res => res.json());
-
                 for (const coin in coinChecked) {
                     let currCoin = data.filter(coinData => coinData.name === coin)
                     currCoin[0].dataPoints.push({
@@ -45,7 +49,7 @@ $(() => {
                     exportEnabled: true,
                     animationEnabled: true,
                     title: {
-                        text: "Chosen Coins"
+                        text: checkedArr
                     },
                     axisX: {
                         title: "date"
@@ -92,3 +96,5 @@ $(() => {
         }
     })
 })
+
+// when you clear the coins that selected, the interval still runs, and an error in displayed that data points is undefined.
