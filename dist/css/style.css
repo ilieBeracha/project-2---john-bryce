@@ -408,7 +408,6 @@ html .modal .close:focus {
   .coins .coin {
     min-width: 280px;
     width: 100%;
-    height: 100px;
   }
   .aboutSec {
     display: flex;
