@@ -100,6 +100,8 @@ function createCheckbox(coin) {
             }
             else {
                 checkedArr.push(coin.symbol);
+                // this.setAttribute('id',coin.symbol)
+                // console.log(this);
                 let checkBox = document.querySelector('.checkbox');
                 checkBox.checked = true;
             }

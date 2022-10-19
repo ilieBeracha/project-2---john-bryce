@@ -110,9 +110,11 @@ function createCheckbox(coin: Coin) {
         if (this.checked) {
             if (checkedArr.length === 5) {
                 this.checked = false;
-                modal.style.display = "block"
+                modal.style.display = "block";
             } else {
                 checkedArr.push(coin.symbol)
+                // this.setAttribute('id',coin.symbol)
+                // console.log(this);
                 let checkBox = document.querySelector('.checkbox');
                 (checkBox as HTMLInputElement).checked = true;
 
