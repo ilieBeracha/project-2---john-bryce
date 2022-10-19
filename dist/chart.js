@@ -31,7 +31,6 @@ $(() => {
                     dataPoints: []
                 });
             }
-            console.log(data);
             interval = setInterval(async () => {
                 let chartUrl = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${checkedArr}&tsyms=USD,EUR`;
                 let coinChecked = await fetch(chartUrl).then(res => res.json());

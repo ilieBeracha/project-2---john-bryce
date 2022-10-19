@@ -39,16 +39,19 @@ html {
 }
 body .header,
 html .header {
+  padding-bottom: 10px;
+  text-align: center;
   width: 100%;
-  height: 20%;
+  min-height: 25%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   background-color: var(--gray2Color);
 }
 body .headings,
 html .headings {
+  font-size: 18px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,24 +61,22 @@ html .headings {
 }
 body .menu,
 html .menu {
-  padding: 20px;
   padding-top: 0;
   display: flex;
-  width: 100%;
-  height: 30%;
+  width: 90%;
   justify-content: space-between;
 }
 body .menu .navBar,
 html .menu .navBar {
   gap: 30px;
-  min-width: 400px;
+  min-width: 280px;
   display: flex;
 }
 body .menu .navBar a,
 html .menu .navBar a {
   margin-left: 10px;
   border-radius: 5px;
-  height: 40px;
+  min-width: 40px;
   padding: 7px;
   background-color: var(--grayColor);
 }
@@ -103,7 +104,7 @@ html .menu #searchCoin::placeholder {
 body .aboutSec,
 html .aboutSec {
   width: 100%;
-  height: 80%;
+  height: 75%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -112,7 +113,9 @@ html .aboutSec {
 }
 body .aboutSec .aboutMe,
 html .aboutSec .aboutMe {
-  width: 30%;
+  max-width: 100%;
+  padding-top: 0;
+  min-width: 50%;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -122,8 +125,10 @@ html .aboutSec .aboutMe {
 }
 body .aboutSec .aboutMe img,
 html .aboutSec .aboutMe img {
-  width: 300px;
-  height: 300px;
+  max-width: 300px;
+  max-height: 300px;
+  min-height: 100px;
+  min-height: 100px;
   border-radius: 50%;
   margin-bottom: 30px;
 }
@@ -135,13 +140,15 @@ html .aboutSec .aboutMe .aboutMeLinks {
 }
 body .aboutSec .aboutMe .aboutMeLinks img,
 html .aboutSec .aboutMe .aboutMeLinks img {
-  width: 40px;
-  height: 40px;
+  max-width: 40px;
+  max-height: 40px;
+  min-height: 10px;
+  min-height: 10px;
 }
 body .reportsSec,
 html .reportsSec {
   width: 100%;
-  height: 80%;
+  height: 75%;
   background-color: var(--grayColor);
   color: var(--textColor);
 }
@@ -383,6 +390,9 @@ html .modal .close:focus {
 }
 
 @media only screen and (max-width: 730px) {
+  .header {
+    padding: 10px;
+  }
   .menu {
     display: flex;
     justify-content: center;
@@ -396,8 +406,20 @@ html .modal .close:focus {
     margin-bottom: 20px;
   }
   .coins .coin {
+    min-width: 280px;
     width: 100%;
     height: 100px;
+  }
+  .aboutSec {
+    display: flex;
+    padding-top: 30px;
+  }
+  .aboutSec .aboutMe {
+    height: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 5px;
+    padding-right: 5px;
   }
 }
 

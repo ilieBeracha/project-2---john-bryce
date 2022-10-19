@@ -106,7 +106,7 @@ function createCheckbox(coin: Coin) {
     label.classList.add('checkbox')
     let span = document.createElement('span');
     checkBox.checked = checkedArr.includes(coin.symbol)
-    checkBox.addEventListener('change', async function (e) {
+    checkBox.addEventListener('change', async function () {
         if (this.checked) {
             if (checkedArr.length === 5) {
                 this.checked = false;
@@ -135,9 +135,7 @@ $('#searchBtn').on('click', async () => {
         $('.searchCoin').css('border', '3px solid red')
         return;
     }
-    coins = coins.filter(coin=>coin.symbol == valueCoin)
-    console.log(coins);
-    
+    coins = coins.filter(coin=>coin.symbol == valueCoin)    
     $('.searchCoin').css('border', 'none')
     let overlay = document.getElementById('overlay');
     overlay.style.display = "flex";
