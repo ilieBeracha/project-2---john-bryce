@@ -136,7 +136,7 @@ html .aboutSec .aboutMe img {
 body .aboutSec .aboutMe .aboutMeLinks,
 html .aboutSec .aboutMe .aboutMeLinks {
   display: flex;
-  width: 100%;
+  width: 50%;
   justify-content: space-around;
 }
 body .aboutSec .aboutMe .aboutMeLinks img,
