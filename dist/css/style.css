@@ -113,8 +113,9 @@ html .aboutSec {
 }
 body .aboutSec .aboutMe,
 html .aboutSec .aboutMe {
+  border-radius: 10px;
   max-width: 100%;
-  padding-top: 0;
+  padding: 10px;
   min-width: 50%;
   display: flex;
   justify-content: center;
@@ -129,7 +130,7 @@ html .aboutSec .aboutMe img {
   max-height: 300px;
   min-height: 100px;
   min-height: 100px;
-  border-radius: 50%;
+  border-radius: 5px;
   margin-bottom: 30px;
 }
 body .aboutSec .aboutMe .aboutMeLinks,
@@ -173,7 +174,9 @@ html .reportsSec .charts #chartContainer {
 }
 body .coins,
 html .coins {
+  min-height: 75%;
   display: flex;
+  align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
@@ -306,87 +309,6 @@ html .modal .close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
-}
-
-#overlay {
-  position: fixed;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  z-index: 3;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-}
-
-#popup {
-  position: absolute;
-  z-index: 5;
-  width: 25%;
-  min-height: 15%;
-  min-width: 300px;
-  height: 40%;
-  background-color: var(--textColor);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-}
-#popup .checkbox {
-  display: inline-flex;
-  cursor: pointer;
-  position: absolute;
-  left: 5px;
-  top: 5px;
-}
-#popup .checkbox > span {
-  color: #34495E;
-}
-#popup .checkbox > input {
-  height: 25px;
-  width: 25px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -o-appearance: none;
-  appearance: none;
-  border-radius: 4px;
-  outline: none;
-  transition-duration: 0.3s;
-  background-color: var(--gray2Color);
-  cursor: pointer;
-}
-#popup .checkbox > input:checked {
-  background-color: var(--grayColor);
-}
-#popup .checkbox > input:checked + span::before {
-  content: "✓";
-  display: block;
-  text-align: center;
-  color: var(--textColor);
-  position: absolute;
-  left: 0.4rem;
-  top: 0.1rem;
-}
-#popup .searchedCoin {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  width: 50%;
-}
-#popup .closePopup {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-}
-#popup button {
-  background-color: transparent;
-  border: none;
 }
 
 @media only screen and (max-width: 730px) {

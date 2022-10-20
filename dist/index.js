@@ -5,11 +5,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     let coins = await fetch(`${BASE_URL}`).then(res => res.json());
     for (const coin of coins) {
         createCoin(coin);
+        // console.log(coin);
     }
 });
 async function createCoin(coin) {
     let div = document.createElement('div');
     div.classList.add('coin');
+    div.setAttribute('id', coin.symbol);
     let checkBox = createCheckbox(coin);
     let image = createImage(coin);
     let coinName = createCoinName(coin);
@@ -100,15 +102,13 @@ function createCheckbox(coin) {
             }
             else {
                 checkedArr.push(coin.symbol);
-                // this.setAttribute('id',coin.symbol)
-                // console.log(this);
                 let checkBox = document.querySelector('.checkbox');
-                checkBox.checked = true;
+                // (checkBox as HTMLInputElement).checked = true;
             }
         }
         else {
             checkedArr = checkedArr.filter(c => c !== coin.symbol);
-            checkBox.checked = false;
+            // (checkBox as HTMLInputElement).checked = false;
         }
         console.log(checkedArr);
     });
@@ -118,40 +118,23 @@ function createCheckbox(coin) {
 $('#searchBtn').on('click', async () => {
     let valueCoin = $('.searchCoin').val();
     let coins = await fetch(`${BASE_URL}`).then(res => res.json());
-    if (valueCoin === "" || valueCoin !== coins[0].symbol) {
-        $('.searchCoin').css('border', '3px solid red');
-        return;
-    }
     coins = coins.filter(coin => coin.symbol == valueCoin);
-    $('.searchCoin').css('border', 'none');
-    let overlay = document.getElementById('overlay');
-    overlay.style.display = "flex";
-    let popup = document.getElementById('popup');
-    popup.innerHTML = "";
-    let button = document.createElement('button');
-    button.setAttribute('class', 'closePopup');
-    button.addEventListener('click', () => {
-        overlay.style.display = 'none';
+    console.log(coins);
+    let allCoins = $('.coin');
+    allCoins.each(function () {
+        if (valueCoin === "") {
+            this.style.display = "block";
+            return;
+        }
+        if (this.id === valueCoin) {
+            $('.searchCoin').css('border', 'none');
+            this.style.display = "block";
+        }
+        else {
+            this.style.display = "none";
+        }
     });
-    button.innerText = 'X';
-    popup.append(button);
-    let div = document.createElement('div');
-    div.setAttribute('class', 'searchedCoin');
-    let image = document.createElement('img');
-    image.src = coins[0].image.small;
-    let name = document.createElement('p');
-    let checkBox = createCheckbox(coins[0]);
-    name.innerText = `Name: ${coins[0].id}`;
-    let price = document.createElement('p');
-    price.innerText = `Price: ${(coins[0].market_data.current_price.usd).toString()}`;
-    let marketCap = document.createElement('p');
-    marketCap.innerText = `Market Cap: ${coins[0].market_data.market_cap.usd}`;
-    let change = document.createElement('p');
-    change.innerText = `Change%: ${(coins[0].market_data.price_change_24h).toFixed(3)}`;
-    div.append(image, name, price, marketCap, change, checkBox);
-    popup.append(div);
     $('#searchCoin').val('');
 });
 // orgenizing the functoins.
 // styilyng the about me page.
-// poopup checkbox async with coin checkbox but isnt async on the checked.

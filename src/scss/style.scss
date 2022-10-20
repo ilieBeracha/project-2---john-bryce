@@ -52,13 +52,6 @@ html {
 
     }
 
-    // .searchByCoin{
-    //     min-height: 100px;
-    //     display: flex;
-    //     flex-direction: column;
-    //     justify-content: space-around;
-    // }
-
     .headings {
 
         font-size: 18px;
@@ -71,11 +64,9 @@ html {
     }
 
     .menu {
-        // padding: 20px;
         padding-top: 0;
         display: flex;
         width: 90%;
-        // height: 30%;
         justify-content: space-between;
 
         .navBar {
@@ -124,10 +115,11 @@ html {
         background-color: var(--grayColor);
         color: var(--textColor);
 
+
         .aboutMe {
+            border-radius: 10px;
             max-width: 100%;
-            // padding: 20px;
-            padding-top: 0;
+            padding: 10px;
             min-width: 50%;
             display: flex;
             justify-content: center;
@@ -141,7 +133,7 @@ html {
                 max-height: 300px;
                 min-height: 100px;
                 min-height: 100px;
-                border-radius: 50%;
+                border-radius: 5px;
                 margin-bottom: 30px;
                 
             }
@@ -189,9 +181,10 @@ html {
         }
     }
 
-
     .coins {
+        min-height: 75%;
         display: flex;
+        align-items: center;
         justify-content: center;
         flex-wrap: wrap;
         gap: 20px;
@@ -202,7 +195,6 @@ html {
         .coin {
             position: relative;
             padding: 10px;
-            // border: 1px solid rgb(184, 183, 183);
             width: 280px;
             min-height: 130px;
             text-align: center;
@@ -332,95 +324,6 @@ html {
 }
 
 
-#overlay {
-    position: fixed;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    z-index: 3;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.7);
-}
-
-#popup {
-    position: absolute;
-    z-index: 5;
-    width: 25%;
-    min-height: 15%;
-    min-width: 300px;
-    height: 40%;
-    background-color: var(--textColor);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-
-    .checkbox {
-        display: inline-flex;
-        cursor: pointer;
-        position: absolute;
-        left: 5px;
-        top: 5px;
-    }
-
-    .checkbox>span {
-        color: #34495E;
-    }
-
-    .checkbox>input {
-        height: 25px;
-        width: 25px;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        -o-appearance: none;
-        appearance: none;
-        border-radius: 4px;
-        outline: none;
-        transition-duration: 0.3s;
-        background-color: var(--gray2Color);
-        cursor: pointer;
-    }
-
-    .checkbox>input:checked {
-        background-color: var(--grayColor);
-    }
-
-    .checkbox>input:checked+span::before {
-        content: '\2713';
-        display: block;
-        text-align: center;
-        color: var(--textColor);
-        position: absolute;
-        left: 0.4rem;
-        top: 0.1rem;
-    }
-
-    .searchedCoin {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        width: 50%;
-    }
-
-    .closePopup {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-    }
-
-    button {
-        background-color: transparent;
-        border: none;
-    }
-}
-
 @media only screen and (max-width: 730px) {
     .header {
         padding: 10px;
@@ -450,11 +353,9 @@ html {
     .aboutSec {
         display: flex;
         padding-top: 30px;
-  
+
 
         .aboutMe {
-            // margin-top: 100px;
-            
             height: 100%;
             padding-top: 0;
             padding-bottom: 0;
