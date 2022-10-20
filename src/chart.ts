@@ -4,21 +4,32 @@ $(() => {
         e.preventDefault()
         let page = this.dataset.page;
         $('section').removeClass('show');
-        $(`.${page}`).addClass('show')
+        $(`.${page}`).addClass('show');
+        if (page === 'coinsSec') {
+            let coins = $('.coin');
+            coins.each(function () {
+                coins.css('align-items', 'revert');
+                $('.searchCoin').css('border','revert')
+                $('.searchCoin').attr('placeholder','insert coin name');
+
+                this.style.display = "block";
+                return;
+            })
+        }
         let interval = undefined;
         if (page === 'reportsSec') {
-            if(checkedArr.length===0){   
+            if (checkedArr.length === 0) {
                 let text = $('#graphDiv');
                 text.html('')
                 let h1 = $('<h1>please choose coins to see the graphs!</h1>');
                 text.append(h1)
                 $('#chartContainer').html('');
                 return;
-            } else{
+            } else {
                 $('#graphDiv').html('');
             }
             let data = [];
-            
+
             let chartUrl = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${checkedArr}&tsyms=USD,EUR`
             let coinChecked = await fetch(chartUrl).then(res => res.json());
 
@@ -41,7 +52,7 @@ $(() => {
                     currCoin[0].dataPoints.push({
                         x: new Date(),
                         y: coinChecked[coin].USD,
-                    }) 
+                    })
                 }
 
                 var options = {
@@ -90,8 +101,8 @@ $(() => {
             }, 2000)
 
         } else {
-            clearInterval(interval)
-            interval=0;
+            clearInterval(interval);
+            interval = 0;
         }
     })
 })

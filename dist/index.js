@@ -102,13 +102,10 @@ function createCheckbox(coin) {
             }
             else {
                 checkedArr.push(coin.symbol);
-                let checkBox = document.querySelector('.checkbox');
-                // (checkBox as HTMLInputElement).checked = true;
             }
         }
         else {
             checkedArr = checkedArr.filter(c => c !== coin.symbol);
-            // (checkBox as HTMLInputElement).checked = false;
         }
         console.log(checkedArr);
     });
@@ -120,21 +117,33 @@ $('#searchBtn').on('click', async () => {
     let coins = await fetch(`${BASE_URL}`).then(res => res.json());
     coins = coins.filter(coin => coin.symbol == valueCoin);
     console.log(coins);
-    let allCoins = $('.coin');
-    allCoins.each(function () {
+    let everyCoin = $('.coin');
+    let coinsDiv = $('.coins');
+    let exist = false;
+    everyCoin.each(function () {
         if (valueCoin === "") {
+            coinsDiv.css('align-items', 'revert');
             this.style.display = "block";
+            $('.searchCoin').css('border', 'revert');
+            $('.searchCoin').attr('placeholder', 'insert coin name');
             return;
         }
         if (this.id === valueCoin) {
-            $('.searchCoin').css('border', 'none');
             this.style.display = "block";
+            coinsDiv.css('align-items', 'start');
+            $('.searchCoin').attr('placeholder', 'insert coin name');
+            exist = true;
         }
         else {
             this.style.display = "none";
         }
+        $('.searchCoin').css('border', 'revert');
     });
-    $('#searchCoin').val('');
+    if (!exist && valueCoin != "") {
+        $('.searchCoin').css('border', '2px solid red');
+        $('.searchCoin').attr('placeholder', 'try again');
+    }
+    $('.searchCoin').val('');
 });
 // orgenizing the functoins.
 // styilyng the about me page.

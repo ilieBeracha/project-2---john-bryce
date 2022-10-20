@@ -4,6 +4,16 @@ $(() => {
         let page = this.dataset.page;
         $('section').removeClass('show');
         $(`.${page}`).addClass('show');
+        if (page === 'coinsSec') {
+            let coins = $('.coin');
+            coins.each(function () {
+                coins.css('align-items', 'revert');
+                $('.searchCoin').css('border', 'revert');
+                $('.searchCoin').attr('placeholder', 'insert coin name');
+                this.style.display = "block";
+                return;
+            });
+        }
         let interval = undefined;
         if (page === 'reportsSec') {
             if (checkedArr.length === 0) {
