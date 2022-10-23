@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     let coins = await fetch(`${BASE_URL}`).then(res => res.json());
     for (const coin of coins) {
         createCoin(coin);
-        // console.log(coin);
     }
 });
 async function createCoin(coin) {
@@ -107,7 +106,6 @@ function createCheckbox(coin) {
         else {
             checkedArr = checkedArr.filter(c => c !== coin.symbol);
         }
-        console.log(checkedArr);
     });
     label.append(checkBox, span);
     return label;
@@ -116,7 +114,6 @@ $('#searchBtn').on('click', async () => {
     let valueCoin = $('.searchCoin').val();
     let coins = await fetch(`${BASE_URL}`).then(res => res.json());
     coins = coins.filter(coin => coin.symbol == valueCoin);
-    console.log(coins);
     let everyCoin = $('.coin');
     let coinsDiv = $('.coins');
     let exist = false;
@@ -145,5 +142,3 @@ $('#searchBtn').on('click', async () => {
     }
     $('.searchCoin').val('');
 });
-// orgenizing the functoins.
-// styilyng the about me page.

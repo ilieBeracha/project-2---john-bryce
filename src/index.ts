@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     let coins: Coin[] = await fetch(`${BASE_URL}`).then(res => res.json());
     for (const coin of coins) {
         createCoin(coin);
-        // console.log(coin);
-
     }
 })
 
@@ -53,7 +51,6 @@ function createBtn(coin: Coin) {
         spinner.classList.add('lds-dual-ring')
         button.append(spinner)
         $(`#${coin.id}-info`).html('');
-
         if (cache[coin.id]) {
             let diff = (new Date()).getTime() - cache[coin.id].date
             if (diff > 2 * 60 * 1000) {
@@ -93,11 +90,9 @@ function createImage(coin: Coin) {
     return image
 }
 
-
 span.addEventListener('click', function () {
     modal.style.display = "none";
 })
-
 
 let checkedArr = [];
 
@@ -120,9 +115,7 @@ function createCheckbox(coin: Coin) {
         } else {
             checkedArr = checkedArr.filter(c => c !== coin.symbol);
         }
-        console.log(checkedArr)
     })
-
     label.append(checkBox, span)
     return label
 }
@@ -131,7 +124,6 @@ $('#searchBtn').on('click', async () => {
     let valueCoin = $('.searchCoin').val();
     let coins: Coin[] = await fetch(`${BASE_URL}`).then(res => res.json());
     coins = coins.filter(coin => coin.symbol == valueCoin);
-    console.log(coins);
     let everyCoin = $('.coin');
     let coinsDiv = $('.coins');
     let exist = false;
@@ -158,12 +150,6 @@ $('#searchBtn').on('click', async () => {
         $('.searchCoin').attr('placeholder','try again');
     }
     $('.searchCoin').val('');
-})
-
-
-
-// orgenizing the functoins.
-// styilyng the about me page.
-
+});
 
 

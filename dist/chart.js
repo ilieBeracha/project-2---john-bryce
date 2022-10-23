@@ -96,10 +96,8 @@ $(() => {
                 $("#chartContainer").CanvasJSChart(options);
             }, 2000);
         }
-        else {
+        $('a').on('click', () => {
             clearInterval(interval);
-            interval = 0;
-        }
+        });
     });
 });
-// when you clear the coins that selected, the interval still runs, and an error in displayed that data points is undefined.

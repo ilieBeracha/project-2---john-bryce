@@ -1,4 +1,3 @@
-
 $(() => {
     $('.navBar a').on('click', async function (e) {
         e.preventDefault()
@@ -9,9 +8,8 @@ $(() => {
             let coins = $('.coin');
             coins.each(function () {
                 coins.css('align-items', 'revert');
-                $('.searchCoin').css('border','revert')
-                $('.searchCoin').attr('placeholder','insert coin name');
-
+                $('.searchCoin').css('border', 'revert')
+                $('.searchCoin').attr('placeholder', 'insert coin name');
                 this.style.display = "block";
                 return;
             })
@@ -32,7 +30,6 @@ $(() => {
 
             let chartUrl = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${checkedArr}&tsyms=USD,EUR`
             let coinChecked = await fetch(chartUrl).then(res => res.json());
-
             for (const coin in coinChecked) {
                 data.push({
                     name: coin,
@@ -54,7 +51,6 @@ $(() => {
                         y: coinChecked[coin].USD,
                     })
                 }
-
                 var options = {
                     exportEnabled: true,
                     animationEnabled: true,
@@ -87,7 +83,6 @@ $(() => {
                     },
                     data: data
                 };
-
                 function toggleDataSeries(e) {
                     if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
                         e.dataSeries.visible = false;
@@ -96,15 +91,11 @@ $(() => {
                     }
                     e.chart.render();
                 };
-
                 ($("#chartContainer") as any).CanvasJSChart(options);
             }, 2000)
-
-        } else {
-            clearInterval(interval);
-            interval = 0;
         }
+        $('a').on('click', () => {
+            clearInterval(interval);
+        })
     })
-})
-
-// when you clear the coins that selected, the interval still runs, and an error in displayed that data points is undefined.
+});
