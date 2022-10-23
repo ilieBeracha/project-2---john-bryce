@@ -40,29 +40,7 @@ let cache = {};
 function createBtn(coin) {
     let button = document.createElement('button');
     button.addEventListener('click', async () => {
-        let spinner = document.createElement('div');
-        spinner.classList.add('lds-dual-ring');
-        button.append(spinner);
-        $(`#${coin.id}-info`).html('');
-        if (cache[coin.id]) {
-            let diff = (new Date()).getTime() - cache[coin.id].date;
-            if (diff > 2 * 60 * 1000) {
-                let fetching = await fetch(`${BASE_URL}/${coin.id}`).then(res => res.json());
-                cache[coin.id] = {
-                    date: (new Date()).getTime(),
-                    coin: fetching,
-                };
-            }
-        }
-        else {
-            let fetching = await fetch(`${BASE_URL}/${coin.id}`).then(res => res.json());
-            cache[coin.id] = {
-                date: (new Date()).getTime(),
-                coin: fetching,
-            };
-        }
-        createMoreInfoDiv(cache[coin.id].coin);
-        spinner.remove();
+        await cacheEventListener(button, coin);
     });
     button.classList.add('btn');
     button.setAttribute('data-bs-toggle', 'collapse');
@@ -70,6 +48,31 @@ function createBtn(coin) {
     button.type = 'button';
     button.innerText = "More info";
     return button;
+}
+async function cacheEventListener(button, coin) {
+    let spinner = document.createElement('div');
+    spinner.classList.add('lds-dual-ring');
+    button.append(spinner);
+    $(`#${coin.id}-info`).html('');
+    if (cache[coin.id]) {
+        let diff = (new Date()).getTime() - cache[coin.id].date;
+        if (diff > 2 * 60 * 1000) {
+            let fetching = await fetch(`${BASE_URL}/${coin.id}`).then(res => res.json());
+            cache[coin.id] = {
+                date: (new Date()).getTime(),
+                coin: fetching,
+            };
+        }
+    }
+    else {
+        let fetching = await fetch(`${BASE_URL}/${coin.id}`).then(res => res.json());
+        cache[coin.id] = {
+            date: (new Date()).getTime(),
+            coin: fetching,
+        };
+    }
+    createMoreInfoDiv(cache[coin.id].coin);
+    spinner.remove();
 }
 function createCoinName(coin) {
     let coinName = document.createElement('p');
@@ -116,6 +119,9 @@ $('#searchBtn').on('click', async () => {
     coins = coins.filter(coin => coin.symbol == valueCoin);
     let everyCoin = $('.coin');
     let coinsDiv = $('.coins');
+    searchIfCoinExist(everyCoin, valueCoin, coinsDiv);
+});
+function searchIfCoinExist(everyCoin, valueCoin, coinsDiv) {
     let exist = false;
     everyCoin.each(function () {
         if (valueCoin === "") {
@@ -141,4 +147,4 @@ $('#searchBtn').on('click', async () => {
         $('.searchCoin').attr('placeholder', 'try again');
     }
     $('.searchCoin').val('');
-});
+}

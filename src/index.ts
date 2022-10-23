@@ -2,7 +2,6 @@ const BASE_URL = 'https://api.coingecko.com/api/v3/coins'
 let modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
 
-
 document.addEventListener('DOMContentLoaded', async () => {
     let coins: Coin[] = await fetch(`${BASE_URL}`).then(res => res.json());
     for (const coin of coins) {
@@ -25,7 +24,6 @@ async function createCoin(coin: Coin) {
     $('.coins').append(div)
 }
 
-
 async function createMoreInfoDiv(coin: Coin,) {
     let moreInfo = $(`#${coin.id}-info`);
     let usd = document.createElement('p')
@@ -47,28 +45,7 @@ let cache = {}
 function createBtn(coin: Coin) {
     let button = document.createElement('button');
     button.addEventListener('click', async () => {
-        let spinner = document.createElement('div');
-        spinner.classList.add('lds-dual-ring')
-        button.append(spinner)
-        $(`#${coin.id}-info`).html('');
-        if (cache[coin.id]) {
-            let diff = (new Date()).getTime() - cache[coin.id].date
-            if (diff > 2 * 60 * 1000) {
-                let fetching: Coin = await fetch(`${BASE_URL}/${coin.id}`).then(res => res.json());
-                cache[coin.id] = {
-                    date: (new Date()).getTime(),
-                    coin: fetching,
-                }
-            }
-        } else {
-            let fetching: Coin = await fetch(`${BASE_URL}/${coin.id}`).then(res => res.json());
-            cache[coin.id] = {
-                date: (new Date()).getTime(),
-                coin: fetching,
-            }
-        }
-        createMoreInfoDiv(cache[coin.id].coin)
-        spinner.remove()
+        await cacheEventListener(button, coin);
     })
     button.classList.add('btn');
     button.setAttribute('data-bs-toggle', 'collapse')
@@ -76,6 +53,31 @@ function createBtn(coin: Coin) {
     button.type = 'button'
     button.innerText = "More info"
     return button
+}
+
+async function cacheEventListener(button, coin) {
+    let spinner = document.createElement('div');
+    spinner.classList.add('lds-dual-ring')
+    button.append(spinner)
+    $(`#${coin.id}-info`).html('');
+    if (cache[coin.id]) {
+        let diff = (new Date()).getTime() - cache[coin.id].date
+        if (diff > 2 * 60 * 1000) {
+            let fetching: Coin = await fetch(`${BASE_URL}/${coin.id}`).then(res => res.json());
+            cache[coin.id] = {
+                date: (new Date()).getTime(),
+                coin: fetching,
+            }
+        }
+    } else {
+        let fetching: Coin = await fetch(`${BASE_URL}/${coin.id}`).then(res => res.json());
+        cache[coin.id] = {
+            date: (new Date()).getTime(),
+            coin: fetching,
+        }
+    }
+    createMoreInfoDiv(cache[coin.id].coin)
+    spinner.remove()
 }
 
 function createCoinName(coin: Coin) {
@@ -126,19 +128,23 @@ $('#searchBtn').on('click', async () => {
     coins = coins.filter(coin => coin.symbol == valueCoin);
     let everyCoin = $('.coin');
     let coinsDiv = $('.coins');
+    searchIfCoinExist(everyCoin, valueCoin, coinsDiv)
+});
+
+function searchIfCoinExist(everyCoin, valueCoin, coinsDiv) {
     let exist = false;
     everyCoin.each(function () {
         if (valueCoin === "") {
             coinsDiv.css('align-items', 'revert');
             this.style.display = "block";
             $('.searchCoin').css('border', 'revert')
-            $('.searchCoin').attr('placeholder','insert coin name');
+            $('.searchCoin').attr('placeholder', 'insert coin name');
             return;
         }
         if (this.id === valueCoin) {
             this.style.display = "block";
             coinsDiv.css('align-items', 'start');
-            $('.searchCoin').attr('placeholder','insert coin name');
+            $('.searchCoin').attr('placeholder', 'insert coin name');
             exist = true;
         } else {
             this.style.display = "none";
@@ -147,9 +153,7 @@ $('#searchBtn').on('click', async () => {
     })
     if (!exist && valueCoin != "") {
         $('.searchCoin').css('border', '2px solid red');
-        $('.searchCoin').attr('placeholder','try again');
+        $('.searchCoin').attr('placeholder', 'try again');
     }
     $('.searchCoin').val('');
-});
-
-
+}
