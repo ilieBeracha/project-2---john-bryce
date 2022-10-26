@@ -105,14 +105,48 @@ function createCheckbox(coin: Coin) {
     let label = document.createElement('label')
     label.classList.add('checkbox')
     let span = document.createElement('span');
-    checkBox.checked = checkedArr.includes(coin.symbol)
+    checkBox.checked = checkedArr.includes((coin.symbol))
     checkBox.addEventListener('change', async function () {
         if (this.checked) {
             if (checkedArr.length === 5) {
                 this.checked = false;
                 modal.style.display = "block";
+                for (let i = 0; i < checkedArr.length; i++) {
+                    let div = document.createElement('div');
+                    div.id = checkedArr[i].symbol
+                    div.setAttribute('class', 'modalCoinsDiv');
+                    div.innerHTML = ''
+                    let symbol = document.createElement('img');
+                    symbol.src = checkedArr[i].image.thumb
+                    let p = document.createElement('p');
+                    p.innerText = checkedArr[i].symbol
+                    let checkBox = document.createElement('input');
+                    if(checkedArr[i].symbol===div.id){
+                        checkBox.checked = true
+                    }
+                    checkBox.type = 'checkbox';
+                    checkBox.classList.add('checkBox')
+                    let label = document.createElement('label')
+                    label.classList.add('checkbox')
+                    let span = document.createElement('span');
+                    
+                    label.append(checkBox,span)
+                    div.append(symbol, p, label)
+                    $('.modalCoins').append(div)
+                    console.log(checkedArr[i])
+                    
+                }
+                $('#cancel-modal').on('click',function(){
+                    modal.style.display = 'none'
+                 })
+
+                //  $('#save-modal').on('click',function(){
+                //      for(let i=0; i<checkedArr.length;i++){
+                //         let newArr:Coin[] = []
+                //     }
+                //  })
             } else {
-                checkedArr.push(coin.symbol)
+                checkedArr.push(coin)
             }
         } else {
             checkedArr = checkedArr.filter(c => c !== coin.symbol);

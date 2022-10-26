@@ -186,6 +186,7 @@ html .coins {
   min-height: 75%;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   gap: 20px;
   padding-top: 30px;
@@ -297,6 +298,47 @@ html .modal {
   background-color: rgba(0, 0, 0, 0.4);
   color: var(--textColor);
 }
+body .modal .checkbox,
+html .modal .checkbox {
+  display: inline-flex;
+  cursor: pointer;
+}
+body .modal .checkbox > span,
+html .modal .checkbox > span {
+  color: #34495E;
+}
+body .modal .checkbox > input,
+html .modal .checkbox > input {
+  height: 25px;
+  width: 25px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  border-radius: 4px;
+  outline: none;
+  transition-duration: 0.3s;
+  background-color: var(--gray2Color);
+  cursor: pointer;
+}
+body .modal .checkbox > input:checked,
+html .modal .checkbox > input:checked {
+  background-color: var(--grayColor);
+}
+body .modal .checkbox > input:checked + span::before,
+html .modal .checkbox > input:checked + span::before {
+  content: "✓";
+  display: block;
+  text-align: center;
+  color: var(--textColor);
+}
+body .modal .modalCoinsDiv,
+html .modal .modalCoinsDiv {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 body .modal .modal-content,
 html .modal .modal-content {
   background-color: var(--grayColor);
@@ -322,6 +364,20 @@ html .modal .close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+body .modal .modal-buttons,
+html .modal .modal-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+body .modal .modal-buttons button,
+html .modal .modal-buttons button {
+  background-color: var(--grayColor);
+  color: var(--textColor);
+  height: 40px;
+  border-radius: 5px;
 }
 
 @media only screen and (max-width: 730px) {
