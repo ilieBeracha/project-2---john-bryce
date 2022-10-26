@@ -10,7 +10,7 @@
     --orangeColor: #8347E5;
 
     --grayColor: #312b2b;
-    --gray2Color: #8347E5;
+    --gray2Color: #F7931A;
 }
 
 body>section.coinsSec,
@@ -198,6 +198,12 @@ html {
         padding-top: 30px;
         padding-bottom: 30px;
         background-color: var(--grayColor);
+        background-image: url(/images/Bitcoin.svg.png);
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position-x: 10%;
+        background-size: 30%;
+        background-position-y:45%;
 
         .coin {
             position: relative;
@@ -344,7 +350,7 @@ html {
         .modalCoinsDiv {
             width: 100%;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
             align-items: center;
         }
 
@@ -388,7 +394,8 @@ html {
             }
         }
     }
-
+    
+    
 
 }
 

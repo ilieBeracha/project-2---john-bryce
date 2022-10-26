@@ -97,63 +97,82 @@ span.addEventListener('click', function () {
 })
 
 let checkedArr = [];
-
+let changesArr = [];
+let chartArr = [];
 function createCheckbox(coin: Coin) {
     let checkBox = document.createElement('input');
+    checkBox.setAttribute('id', coin.symbol)
     checkBox.type = 'checkBox';
-    checkBox.classList.add('checkBox');
+    checkBox.classList.add('checkBox', 'checkBoxAll');
     let label = document.createElement('label')
     label.classList.add('checkbox')
     let span = document.createElement('span');
-    checkBox.checked = checkedArr.includes((coin.symbol))
+    checkBox.checked = checkedArr.includes((coin))
     checkBox.addEventListener('change', async function () {
         if (this.checked) {
             if (checkedArr.length === 5) {
+                $('.modalCoinsDiv').html('');
                 this.checked = false;
                 modal.style.display = "block";
-                for (let i = 0; i < checkedArr.length; i++) {
-                    let div = document.createElement('div');
-                    div.id = checkedArr[i].symbol
-                    div.setAttribute('class', 'modalCoinsDiv');
-                    div.innerHTML = ''
-                    let symbol = document.createElement('img');
-                    symbol.src = checkedArr[i].image.thumb
-                    let p = document.createElement('p');
-                    p.innerText = checkedArr[i].symbol
-                    let checkBox = document.createElement('input');
-                    if(checkedArr[i].symbol===div.id){
-                        checkBox.checked = true
-                    }
-                    checkBox.type = 'checkbox';
-                    checkBox.classList.add('checkBox')
-                    let label = document.createElement('label')
-                    label.classList.add('checkbox')
-                    let span = document.createElement('span');
-                    
-                    label.append(checkBox,span)
-                    div.append(symbol, p, label)
-                    $('.modalCoins').append(div)
-                    console.log(checkedArr[i])
-                    
-                }
-                $('#cancel-modal').on('click',function(){
-                    modal.style.display = 'none'
-                 })
-
-                //  $('#save-modal').on('click',function(){
-                //      for(let i=0; i<checkedArr.length;i++){
-                //         let newArr:Coin[] = []
-                //     }
-                //  })
+                changesArr = checkedArr;
+                createSelectedCoinDiv()
+                $('#cancel-modal').on('click', function () {
+                    modal.style.display = 'none';
+                })
+                $('#save-modal').on('click', saveModalEvent);
             } else {
-                checkedArr.push(coin)
+                checkedArr.push(coin);
             }
         } else {
-            checkedArr = checkedArr.filter(c => c !== coin.symbol);
+            checkedArr = checkedArr.filter(c => c !== coin);
         }
     })
     label.append(checkBox, span)
     return label
+}
+
+function saveModalEvent() {
+    let checkBoxInput = $('.checkBoxAll')
+    let copyChangesArr = changesArr.map(coin => coin.symbol)
+    for (let i = 0; i < checkBoxInput.length; i++) {
+        if (copyChangesArr.includes(checkBoxInput[i].id)) {
+            (checkBoxInput[i] as HTMLInputElement).checked = true;
+        } else {
+            (checkBoxInput[i] as HTMLInputElement).checked = false;
+        }
+    }
+    checkedArr = changesArr
+    modal.style.display = 'none'
+}
+
+function createSelectedCoinDiv() {
+    for (let i = 0; i < checkedArr.length; i++) {
+        let div = document.createElement('div');
+        div.id = checkedArr[i].symbol
+        div.setAttribute('class', 'modalCoinsDiv');
+        let symbol = document.createElement('img');
+        symbol.src = checkedArr[i].image.thumb
+        let p = document.createElement('p');
+        p.innerText = checkedArr[i].symbol
+        let checkBox = document.createElement('input');
+        checkBox.setAttribute('id', checkedArr[i].symbol);
+        checkBox.addEventListener('change', function () {
+            if (!this.checked) {
+                changesArr = changesArr.filter(coin => coin.id != checkedArr[i].id)
+            } else if (this.checked && !changesArr.includes(checkedArr[i])) {
+                changesArr.push(checkedArr[i])
+            }
+        })
+        checkBox.checked = true
+        checkBox.type = 'checkbox';
+        checkBox.classList.add('checkBox');
+        let label = document.createElement('label')
+        label.classList.add('checkbox')
+        let span = document.createElement('span');
+        label.append(checkBox, span)
+        div.append(symbol, p, label)
+        $('.modalCoins').append(div)
+    }
 }
 
 $('#searchBtn').on('click', async () => {

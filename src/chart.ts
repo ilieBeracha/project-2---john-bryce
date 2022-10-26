@@ -16,7 +16,9 @@ $(() => {
         }
         let interval = undefined;
         if (page === 'reportsSec') {
-            if (checkedArr.length === 0) {
+            let chartArr = checkedArr.map(coin => coin.symbol)
+            
+            if (chartArr.length === 0) {
                 let text = $('#graphDiv');
                 text.html('')
                 let h1 = $('<h1>please choose coins to see the graphs!</h1>');
@@ -28,7 +30,7 @@ $(() => {
             }
             let data = [];
 
-            let chartUrl = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${checkedArr}&tsyms=USD,EUR`
+            let chartUrl = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${chartArr}&tsyms=USD,EUR`
             let coinChecked = await fetch(chartUrl).then(res => res.json());
             for (const coin in coinChecked) {
                 data.push({
@@ -42,7 +44,7 @@ $(() => {
                 })
             }
             interval = setInterval(async () => {
-                let chartUrl = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${checkedArr}&tsyms=USD,EUR`
+                let chartUrl = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${chartArr}&tsyms=USD,EUR`
                 let coinChecked = await fetch(chartUrl).then(res => res.json());
                 for (const coin in coinChecked) {
                     let currCoin = data.filter(coinData => coinData.name === coin)
@@ -55,7 +57,7 @@ $(() => {
                     exportEnabled: true,
                     animationEnabled: true,
                     title: {
-                        text: checkedArr
+                        text: chartArr
                     },
                     axisX: {
                         title: "date"
