@@ -304,6 +304,12 @@ html .modal {
   background-color: rgba(0, 0, 0, 0.4);
   color: var(--textColor);
 }
+body .modal .divAllModal,
+html .modal .divAllModal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 body .modal .checkbox,
 html .modal .checkbox {
   display: inline-flex;
@@ -342,7 +348,7 @@ body .modal .modalCoinsDiv,
 html .modal .modalCoinsDiv {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 body .modal .modal-content,

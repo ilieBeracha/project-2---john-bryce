@@ -312,6 +312,11 @@ html {
         background-color: rgba(0, 0, 0, 0.4);
         color: var(--textColor);
 
+        .divAllModal{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
         .checkbox {
             display: inline-flex;
@@ -350,7 +355,7 @@ html {
         .modalCoinsDiv {
             width: 100%;
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
         }
 

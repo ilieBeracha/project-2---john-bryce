@@ -89,7 +89,7 @@ span.addEventListener('click', function () {
 });
 let checkedArr = [];
 let changesArr = [];
-let chartArr = [];
+let lastCoin;
 function createCheckbox(coin) {
     let checkBox = document.createElement('input');
     checkBox.setAttribute('id', coin.symbol);
@@ -105,6 +105,7 @@ function createCheckbox(coin) {
                 $('.modalCoinsDiv').html('');
                 this.checked = false;
                 modal.style.display = "block";
+                lastCoin = coin;
                 changesArr = checkedArr;
                 createSelectedCoinDiv();
                 $('#cancel-modal').on('click', function () {
@@ -125,6 +126,9 @@ function createCheckbox(coin) {
 }
 function saveModalEvent() {
     let checkBoxInput = $('.checkBoxAll');
+    if (changesArr.length < 5) {
+        changesArr.push(lastCoin);
+    }
     let copyChangesArr = changesArr.map(coin => coin.symbol);
     for (let i = 0; i < checkBoxInput.length; i++) {
         if (copyChangesArr.includes(checkBoxInput[i].id)) {
@@ -138,6 +142,8 @@ function saveModalEvent() {
     modal.style.display = 'none';
 }
 function createSelectedCoinDiv() {
+    let upTo5 = document.getElementById('upTo5');
+    upTo5.innerText = `to choose ${lastCoin.symbol.toLocaleUpperCase()} coin, delete one coin.`;
     for (let i = 0; i < checkedArr.length; i++) {
         let div = document.createElement('div');
         div.id = checkedArr[i].symbol;
